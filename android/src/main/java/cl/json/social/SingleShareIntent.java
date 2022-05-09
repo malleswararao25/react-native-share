@@ -87,8 +87,13 @@ public abstract class SingleShareIntent extends ShareIntent {
                 TargetChosenReceiver.sendCallback(true, true, "OK");
             }
         } else {
+            Activity activity = this.reactContext.getCurrentActivity();
+            if (activity == null) {
+                TargetChosenReceiver.sendCallback(false, "Something went wrong");
+                return;
+            }
             this.getIntent().addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            this.reactContext.startActivityForResult(this.getIntent(), RNShareModule.SHARE_REQUEST_CODE);
+            activity.startActivityForResult(this.getIntent(), RNShareModule.SHARE_REQUEST_CODE);
             TargetChosenReceiver.sendCallback(true, true, this.getIntent().getPackage());
         }
     }
