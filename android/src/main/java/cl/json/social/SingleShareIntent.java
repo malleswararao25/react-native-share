@@ -88,7 +88,7 @@ public abstract class SingleShareIntent extends ShareIntent {
             }
         } else {
             this.getIntent().addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            this.reactContext.startActivity(this.getIntent());
+            this.reactContext.startActivityForResult(this.getIntent(), RNShareModule.SHARE_REQUEST_CODE);
             TargetChosenReceiver.sendCallback(true, true, this.getIntent().getPackage());
         }
     }
