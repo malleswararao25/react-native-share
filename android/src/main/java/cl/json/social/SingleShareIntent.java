@@ -84,7 +84,7 @@ public abstract class SingleShareIntent extends ShareIntent {
                 Intent chooser = Intent.createChooser(this.getIntent(), this.chooserTitle);
                 chooser.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 activity.startActivityForResult(chooser, RNShareModule.SHARE_REQUEST_CODE);
-                TargetChosenReceiver.sendCallback(true, true, "OK");
+                TargetChosenReceiver.sendCallback(true, true, "OK isSupported else");
             }
         } else {
             Activity activity = this.reactContext.getCurrentActivity();
@@ -93,8 +93,9 @@ public abstract class SingleShareIntent extends ShareIntent {
                 return;
             }
             this.getIntent().addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            this.getIntent().addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
             activity.startActivityForResult(this.getIntent(), RNShareModule.SHARE_REQUEST_CODE);
-            TargetChosenReceiver.sendCallback(true, true, this.getIntent().getPackage());
+            TargetChosenReceiver.sendCallback(true, true, this.getIntent().getPackage()+" else ");
         }
     }
 }
